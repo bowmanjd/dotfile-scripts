@@ -1,3 +1,6 @@
+# Unix shell helper functions for the dotfile basic method
+# https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-a-simple-approach-without-a-bare-repo-2if7
+
 # Copyright 2021 Jonathan Bowman. All documentation and code contained
 # in this file may be freely shared in compliance with the
 # [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
@@ -9,7 +12,7 @@
 #
 # OUT="$(mktemp)"; wget -q -O - https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/basic.sh
 #
-# Now you can use dtfnew($repo_url) to set up a new repo, or dtfrestore($repo_url)
+# Now you can use "dtfnew $repo_url" to set up a new repo, or "dtfrestore $repo_url"
 # to download and configure an already populated repo.
 
 

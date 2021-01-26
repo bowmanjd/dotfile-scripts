@@ -1,3 +1,6 @@
+# Powershell shell helper functions for the dotfile basic method
+# https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-a-simple-approach-without-a-bare-repo-2if7
+
 # Copyright 2021 Jonathan Bowman. All documentation and code contained
 # in this file may be freely shared in compliance with the
 # [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
@@ -12,13 +15,12 @@
 # Then download and execute this code that comes with no warranties or claims
 # of suitability:
 #
-# iwr -useb https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/basic.ps1
+# iwr -useb https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/basic.ps1 | iex
 #
-# Now you can use dtfnew($repo_url) to set up a new repo, or dtfrestore($repo_url)
+# Now you can use "dtfnew $repo_url" to set up a new repo, or "dtfrestore $repo_url"
 # to download and configure an already populated repo.
 
-function dtfnew
-{
+function dtfnew {
   Param ([string]$repo)
   git init -b base
   git remote add origin $repo
