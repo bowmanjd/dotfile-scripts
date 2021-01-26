@@ -26,7 +26,7 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 
 Then you can download and execute the relevant file with `iwr -useb $URL | iex` or download it first then pipe/execute it with `gc -Raw $FILENAME | iex` or unblock the file with [`Unblock-File`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file) or if you just want to throw caution to the wind temporarily, use `Set-ExecutionPolicy Bypass -Scope Process` to bypass policy entirely in the current Powershell session.
 
-Read more about [setting Execution Policies on the Powershell docs](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy).
+Read more about [setting Execution Policies in the Powershell docs](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy).
 
 ## Contributing
 
@@ -34,7 +34,7 @@ Feel free to open an issue if you have suggestions, questions, or glowing affirm
 
 ## Copyright and License
 
-Copyright 2021 Jonathan Bowman. All documentation and code contained in these files may be freely shared in compliance with the [Apache License, Version 2.0][license] and is **provided “AS IS” without warranties or conditions of any kind**.
+Copyright © 2021 Jonathan Bowman. All documentation and code contained in these files may be freely shared in compliance with the [Apache License, Version 2.0][license] and is **provided “AS IS” without warranties or conditions of any kind**.
 
 [article]: https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-a-simple-approach-without-a-bare-repo-2if7
 [license]: LICENSE
