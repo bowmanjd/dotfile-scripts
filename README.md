@@ -24,9 +24,9 @@ Powershell users will want to first make sure their execution policies allow exe
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 ```
 
-Read more about [setting Execution Policies on the Powershell docs](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy).
+Then you can download and execute the relevant file with `iwr -useb $URL | iex` or download it first then pipe/execute it with `gc -Raw $FILENAME | iex` or unblock the file with [`Unblock-File`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file) or if you just want to throw caution to the wind temporarily, use `Set-ExecutionPolicy Bypass -Scope Process` to bypass policy entirely in the current Powershell session.
 
-So, if you download one of the Powershell scripts and want to execute it, you may still need to unblock it with [`Unblock-File`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file).
+Read more about [setting Execution Policies on the Powershell docs](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy).
 
 ## Contributing
 
