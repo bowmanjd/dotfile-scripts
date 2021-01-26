@@ -41,8 +41,9 @@ function dtfrestore {
   Param ([string]$repo)
   git clone -b base --bare $repo $DOTFILES
   dtf config --local status.showUntrackedFiles no
-  git --git-dir="$DOTFILES" --work-tree="$HOME" checkout
-  if (-not $?) {
-    echo "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)`ndtf checkout"
+  dtf checkout
+  if ($LASTEXITCODE) {
+    echo "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)"
+    echo "dtf checkout"
   }
 }
