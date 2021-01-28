@@ -10,7 +10,7 @@
 # below and make sure you feel good about it, then consider downloading and
 # executing this code that comes with no warranties or claims of suitability:
 #
-# OUT="$(mktemp)"; wget -q -O - https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/basic.sh
+# OUT="$(mktemp)"; wget -q -O - https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/basic.sh > $OUT; . $OUT
 #
 # Now you can use "dtfnew $repo_url" to set up a new repo, or "dtfrestore $repo_url"
 # to download and configure an already populated repo.
