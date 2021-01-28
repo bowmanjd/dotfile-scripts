@@ -17,7 +17,8 @@
 
 
 dtfnew () {
-  git init -b base
+  git init 
+  git switch -c base
   git remote add origin $1
 
   # Uncomment one of the following 3 lines
