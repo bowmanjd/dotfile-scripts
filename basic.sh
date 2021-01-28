@@ -31,7 +31,8 @@ dtfnew () {
 }
 
 dtfrestore () {
-  git init -b base
+  git init
+  git switch -c base
   git remote add origin $1
 
   # Uncomment one of the following 2 lines unless repo has '/**' line in a .gitignore
