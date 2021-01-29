@@ -3,8 +3,8 @@
 
 # Copyright 2021 Jonathan Bowman. All documentation and code contained
 # in this file may be freely shared in compliance with the
-# [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-# and is **provided “AS IS” without warranties or conditions of any kind**.
+# Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+# and is **provided "AS IS" without warranties or conditions of any kind**.
 #
 # To use this script, first ask yourself if I can be trusted, then read the code
 # below and make sure you feel good about it, then consider downloading and
