@@ -19,12 +19,6 @@
 # repo to a specific directory. Then use "dtf $module " instead of "git" to
 # add, commit, push, pull, etc.
 
-if [ -n $1 ]; then
-  DOTFILEBRANCH=$1
-else
-  DOTFILEBRANCH=$(git config init.defaultBranch || echo main)
-fi
-
 DOTFILES="$HOME/.dotfiles"
 
 dtf () {
@@ -38,11 +32,10 @@ dtfnew () {
   shift
   git clone --bare $1 "$DOTFILES/$MODULE"
   dtf $MODULE config --local status.showUntrackedFiles no
-  dtf $MODULE switch -c $DOTFILEBRANCH
 
   echo "Please add and commit additional files"
   echo "using 'dtf $MODULE add' and 'dtf $MODULE commit', then run"
-  echo "dtf push -u origin $DOTFILEBRANCH"
+  echo "dtf $MODULE push -u origin HEAD"
 }
 
 dtfrestore () {

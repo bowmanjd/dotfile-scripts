@@ -22,7 +22,6 @@
 
 function dtfnew {
   Param ([string]$repo)
-  git init -b base
   git remote add origin $repo
 
   # Uncomment one of the following 3 lines
@@ -31,22 +30,27 @@ function dtfnew {
   # echo '/**' >> .gitignore; git add -f .gitignore
 
   echo "Please add and commit additional files, then run"
-  echo "git push -u origin base"
+  echo "git push -u origin HEAD"
 }
 
 function dtfrestore {
   Param ([string]$repo)
-  git init -b base
-  git remote add origin $repo
+
+  git init
 
   # Uncomment one of the following 2 lines unless repo has '/**' line in a .gitignore
   git config --local status.showUntrackedFiles no
   # echo '/**' >> .git/info/exclude
 
-  git fetch --set-upstream origin base
+  git remote add origin $repo
+  git fetch
+  git remote set-head origin -a
+  $branch = ((git symbolic-ref --short refs/remotes/origin/HEAD) -split '/' | select -Last 1)
+  git branch -t $branch origin/HEAD
 
-  git switch --no-overwrite-ignore base
-  if (-not $?) {
-    echo "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)`ngit switch base"
+  git switch --no-overwrite-ignore $branch
+  if ($LASTEXITCODE) {
+    echo "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)"
+    echo "git switch $branch"
   }
 }
