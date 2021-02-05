@@ -41,8 +41,8 @@ dtfnew () {
 dtfrestore () {
   MODULE=$1
   shift
-  git clone -b $DOTFILEBRANCH --bare $1 "$DOTFILES/MODULE"
-  dtf config --local status.showUntrackedFiles no
-  dtf checkout || echo -e 'Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf checkout'
+  git clone --bare $1 "$DOTFILES/$MODULE"
+  dtf $MODULE config --local status.showUntrackedFiles no
+  dtf $MODULE checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $MODULE checkout"
 }
 
