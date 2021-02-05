@@ -43,6 +43,7 @@ dtfrestore () {
   shift
   git clone --bare $1 "$DOTFILES/$MODULE"
   dtf $MODULE config --local status.showUntrackedFiles no
+  dtf $MODULE branch -t $(dtf $MODULE symbolic-ref --short HEAD) origin/HEAD
   dtf $MODULE checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $MODULE checkout"
 }
 
