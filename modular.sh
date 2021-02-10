@@ -11,9 +11,6 @@
 #
 # OUT="$(mktemp)"; wget -q -O - https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/modular.sh > $OUT; . $OUT
 #
-# Optionally, specify your default Git branch (main, master, base, dev, whathaveyou)
-# after "modular.sh" above
-#
 # Now you can use "dtfnew $module $repo_url" to set up a new repo, or
 # "dtfrestore $module $repo_url" to download and configure an already populated
 # repo to a specific directory. Then use "dtf $module " instead of "git" to
@@ -27,23 +24,24 @@ dtf () {
   git --git-dir="$DOTFILES/$MODULE" --work-tree="$HOME" $@
 }
 
+dtfclone () {
+  mkdir -p $DOTFILES
+  DISPOSABLE=$(mktemp -dt dtf-XXXXXX)
+  git clone -c status.showUntrackedFiles=no -n --separate-git-dir $DOTFILES/$1 $2 $DISPOSABLE
+  rm -rf $DISPOSABLE
+}
+
 dtfnew () {
-  MODULE=$1
-  shift
-  git clone --bare $1 "$DOTFILES/$MODULE"
-  dtf $MODULE config --local status.showUntrackedFiles no
+  dtfclone $1 $2
 
   echo "Please add and commit additional files"
-  echo "using 'dtf $MODULE add' and 'dtf $MODULE commit', then run"
-  echo "dtf $MODULE push -u origin HEAD"
+  echo "using 'dtf $1 add' and 'dtf $1 commit', then run"
+  echo "dtf $1 push -u origin HEAD"
 }
 
 dtfrestore () {
-  MODULE=$1
-  shift
-  git clone --bare $1 "$DOTFILES/$MODULE"
-  dtf $MODULE config --local status.showUntrackedFiles no
-  dtf $MODULE branch -t $(dtf $MODULE symbolic-ref --short HEAD) origin/HEAD
-  dtf $MODULE checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $MODULE checkout"
+  dtfclone $1 $2
+  #dtf $MODULE branch -t $(dtf $MODULE symbolic-ref --short HEAD) origin/HEAD
+  dtf $1 checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $1 checkout"
 }
 
