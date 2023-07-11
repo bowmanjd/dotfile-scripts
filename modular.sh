@@ -1,3 +1,4 @@
+#!/bin/sh
 # Unix shell helper functions for a modular bare repo approach
 
 # Copyright 2023 Jonathan Bowman. All documentation and code contained
@@ -43,5 +44,24 @@ dtfrestore () {
   dtfclone $1 $2
   #dtf $MODULE branch -t $(dtf $MODULE symbolic-ref --short HEAD) origin/HEAD
   dtf $1 checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $1 checkout"
+}
+
+dtfcheck () {
+	for mod in $(find "$DOTFILES" -maxdepth 1 -mindepth 1 -type d); do
+		printf "\n$(basename $mod):\n"
+		git --git-dir="$mod" remote update >/dev/null
+		dtf $(basename "$mod") status | rg --color=never '(Changes|ahead|behind|new file|modified)'
+	done
+}
+
+dtfquery () {
+	for modpath in $(find "$DOTFILES" -maxdepth 1 -mindepth 1 -type d); do
+		mod="$(basename $modpath)"
+		match="$(dtf $mod ls-tree --name-only HEAD $@)"
+    if [ -n "$match" ]; then
+			echo "${mod}:"
+			echo "$match" | rg '^' -r '  '
+		fi
+	done
 }
 
