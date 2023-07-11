@@ -1,7 +1,7 @@
 # Unix shell helper functions for the dotfile basic method
 # https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-a-simple-approach-without-a-bare-repo-2if7
 
-# Copyright 2021 Jonathan Bowman. All documentation and code contained
+# Copyright 2023 Jonathan Bowman. All documentation and code contained
 # in this file may be freely shared in compliance with the
 # Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 # and is provided "AS IS" without warranties or conditions of any kind.
