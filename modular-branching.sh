@@ -1,3 +1,4 @@
+#!/bin/sh
 # Unix shell helper functions for a modular bare repo approach with branching
 
 # Copyright 2023 Jonathan Bowman. All documentation and code contained

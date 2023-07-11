@@ -1,3 +1,4 @@
+#!/bin/sh
 # Unix shell helper functions for a dead simple way to manage dotfiles
 # https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-a-simple-approach-without-a-bare-repo-2if7
 

@@ -1,3 +1,4 @@
+#!/bin/sh
 # Unix shell helper functions for the dotfile bare repo method
 
 # Copyright 2023 Jonathan Bowman. All documentation and code contained
