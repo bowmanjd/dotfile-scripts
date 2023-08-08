@@ -13,12 +13,12 @@
 #
 # OUT="$(mktemp)"; wget -q -O - https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/simple.sh > $OUT; . $OUT
 #
-# Now you can use "dtfnew $REPO_URL" to set up a new repo, or "dtfrestore $REPO_URL"
+# Now you can use "dtfclone $REPO_URL" to set up a new repo, or
 # to download and configure an already populated repo.
 
 dtfclone () {
+	REPO="$1"
   DISPOSABLE=$(mktemp -dt dtf-XXXXXX)
-  git clone -c status.showUntrackedFiles=no -n --separate-git-dir .git $1 $DISPOSABLE
+  git clone -c status.showUntrackedFiles=no -n --separate-git-dir "$HOME/.git" $REPO $DISPOSABLE
   rm -rf $DISPOSABLE
 }
-

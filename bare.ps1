@@ -21,6 +21,7 @@
 # to add, commit, push, pull, etc.
 
 $DOTFILES = "$HOME\.dotfiles"
+$DEFAULTBRANCH = "base"
 
 function dtf {
   git --git-dir="$DOTFILES" --work-tree="$HOME" @Args
@@ -30,16 +31,16 @@ function dtfnew {
   Param ([string]$repo)
   git clone --bare $repo $DOTFILES
   dtf config --local status.showUntrackedFiles no
-  dtf switch -c base
+  dtf switch -c $DEFAULTBRANCH
 
   echo "Please add and commit additional files"
   echo "using 'dtf add' and 'dtf commit', then run"
-  echo "dtf push -u origin base"
+  echo "dtf push -u origin $DEFAULTBRANCH"
 }
 
 function dtfrestore {
   Param ([string]$repo)
-  git clone -b base --bare $repo $DOTFILES
+  git clone -b $DEFAULTBRANCH --bare $repo $DOTFILES
   dtf config --local status.showUntrackedFiles no
   dtf checkout
   if ($LASTEXITCODE) {

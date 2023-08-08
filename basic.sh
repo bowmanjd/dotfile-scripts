@@ -13,34 +13,31 @@
 #
 # OUT="$(mktemp)"; wget -q -O - https://raw.githubusercontent.com/bowmanjd/dotfile-scripts/main/basic.sh > $OUT; . $OUT
 #
-# Now you can use "dtfnew $REPO_URL" to set up a new repo, or "dtfrestore $REPO_URL"
+# Now you can use "dtfnew $REPO_URL $BRANCHNAME" to set up a new repo, or "dtfrestore $REPO_URL"
 # to download and configure an already populated repo.
 
-
-dtfnew () {
-  git init 
-  git remote add origin $1
+dtfclone () {
+	REPO="$1"
+  DISPOSABLE=$(mktemp -dt dtf-XXXXXX)
+  git clone -n --separate-git-dir "$HOME/.git" $REPO $DISPOSABLE
+  rm -rf $DISPOSABLE
 
   # Uncomment one of the following 3 lines
-  git config --local status.showUntrackedFiles no
-  # echo '/**' >> .git/info/exclude
-  # echo '/**' >> .gitignore; git add -f .gitignore
+  git -C "$HOME" config --local status.showUntrackedFiles no
+  # echo '/**' >> "$HOME/.git/info/exclude"
+  # echo '/**' >> "$HOME/.gitignore"; git add -f "$HOME/.gitignore"
+}
+
+dtfnew () {
+	REPO="$1"
+	dtfclone "$REPO"
 
   echo "Please add and commit additional files, then run"
   echo "git push -u origin HEAD"
 }
 
 dtfrestore () {
-  git init
-
-  # Uncomment one of the following 2 lines unless repo has '/**' line in a .gitignore
-  git config --local status.showUntrackedFiles no
-  # echo '/**' >> .git/info/exclude
-
-  git remote add origin $1
-  git fetch
-  git remote set-head origin -a
-  BRANCH=$(git symbolic-ref --short refs/remotes/origin/HEAD | cut -d '/' -f 2)
-  git branch -t $BRANCH origin/HEAD
-  git switch --no-overwrite-ignore $BRANCH || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ngit switch $BRANCH"
+	REPO="$1"
+	dtfclone "$REPO"
+  git checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ngit checkout"
 }

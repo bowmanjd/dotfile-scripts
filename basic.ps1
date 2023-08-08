@@ -20,14 +20,23 @@
 # Now you can use "dtfnew $repo_url" to set up a new repo, or "dtfrestore $repo_url"
 # to download and configure an already populated repo.
 
-function dtfnew {
+function dtfclone {
   Param ([string]$repo)
-  git remote add origin $repo
+	$tmpdir = [System.IO.Path]::GetTempPath()
+	[string] $tmpname = [System.Guid]::NewGuid()
+	$disposable = Join-Path $tmpdir $tmpname
+  git clone -n --separate-git-dir "$HOME/.git" $repo $disposable
+	Remove-Item -Recurse -Force $disposable
 
   # Uncomment one of the following 3 lines
-  git config --local status.showUntrackedFiles no
-  # echo '/**' >> .git/info/exclude
-  # echo '/**' >> .gitignore; git add -f .gitignore
+  git -C "$HOME" config --local status.showUntrackedFiles no
+  # echo '/**' >> "$HOME/.git/info/exclude"
+  # echo '/**' >> "$HOME/.gitignore"; git add -f "$HOME/.gitignore"
+}
+
+function dtfnew {
+  Param ([string]$repo)
+	dtfclone $repo
 
   echo "Please add and commit additional files, then run"
   echo "git push -u origin HEAD"
@@ -35,22 +44,11 @@ function dtfnew {
 
 function dtfrestore {
   Param ([string]$repo)
+	dtfclone $repo
 
-  git init
-
-  # Uncomment one of the following 2 lines unless repo has '/**' line in a .gitignore
-  git config --local status.showUntrackedFiles no
-  # echo '/**' >> .git/info/exclude
-
-  git remote add origin $repo
-  git fetch
-  git remote set-head origin -a
-  $branch = ((git symbolic-ref --short refs/remotes/origin/HEAD) -split '/' | select -Last 1)
-  git branch -t $branch origin/HEAD
-
-  git switch --no-overwrite-ignore $branch
+	git -C $HOME checkout
   if ($LASTEXITCODE) {
     echo "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)"
-    echo "git switch $branch"
+    echo "git checkout"
   }
 }
