@@ -19,24 +19,27 @@
 #
 # Now you can use "dtfnew $repo_url" to set up a new repo, or "dtfrestore $repo_url"
 # to download and configure an already populated repo.
+function dtf {
+  git -C "$HOME" @Args
+}
 
 function dtfclone {
   Param ([string]$repo)
-	$tmpdir = [System.IO.Path]::GetTempPath()
-	[string] $tmpname = [System.Guid]::NewGuid()
-	$disposable = Join-Path $tmpdir $tmpname
+  $tmpdir = [System.IO.Path]::GetTempPath()
+  [string] $tmpname = [System.Guid]::NewGuid()
+  $disposable = Join-Path $tmpdir $tmpname
   git clone -n --separate-git-dir "$HOME/.git" $repo $disposable
-	Remove-Item -Recurse -Force $disposable
+  Remove-Item -Recurse -Force $disposable
 
   # Uncomment one of the following 3 lines
-  git -C "$HOME" config --local status.showUntrackedFiles no
+  dtf config --local status.showUntrackedFiles no
   # echo '/**' >> "$HOME/.git/info/exclude"
   # echo '/**' >> "$HOME/.gitignore"; git add -f "$HOME/.gitignore"
 }
 
 function dtfnew {
   Param ([string]$repo)
-	dtfclone $repo
+  dtfclone $repo
 
   echo "Please add and commit additional files, then run"
   echo "git push -u origin HEAD"
@@ -44,9 +47,9 @@ function dtfnew {
 
 function dtfrestore {
   Param ([string]$repo)
-	dtfclone $repo
+  dtfclone $repo
 
-	git -C $HOME checkout
+  dtf checkout
   if ($LASTEXITCODE) {
     echo "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)"
     echo "git checkout"

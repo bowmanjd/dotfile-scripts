@@ -16,28 +16,32 @@
 # Now you can use "dtfnew $REPO_URL $BRANCHNAME" to set up a new repo, or "dtfrestore $REPO_URL"
 # to download and configure an already populated repo.
 
+dtf () {
+  git -C "$HOME" "$@"
+}
+
 dtfclone () {
-	REPO="$1"
+  REPO="$1"
   DISPOSABLE=$(mktemp -dt dtf-XXXXXX)
   git clone -n --separate-git-dir "$HOME/.git" $REPO $DISPOSABLE
   rm -rf $DISPOSABLE
 
   # Uncomment one of the following 3 lines
-  git -C "$HOME" config --local status.showUntrackedFiles no
+  dtf config --local status.showUntrackedFiles no
   # echo '/**' >> "$HOME/.git/info/exclude"
   # echo '/**' >> "$HOME/.gitignore"; git add -f "$HOME/.gitignore"
 }
 
 dtfnew () {
-	REPO="$1"
-	dtfclone "$REPO"
+  REPO="$1"
+  dtfclone "$REPO"
 
   echo "Please add and commit additional files, then run"
   echo "git push -u origin HEAD"
 }
 
 dtfrestore () {
-	REPO="$1"
-	dtfclone "$REPO"
-  git checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ngit checkout"
+  REPO="$1"
+  dtfclone "$REPO"
+  dtf checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ngit checkout"
 }
