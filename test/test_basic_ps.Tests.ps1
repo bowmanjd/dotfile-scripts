@@ -31,9 +31,9 @@ Describe 'dtfnew' {
 	It 'Adds a file' {
 		dtfnew $barerepo
 		New-Item .bashrc
-		git add .bashrc
-		git commit -m "Added .bashrc"
-		git push -u origin HEAD
+		dtf add .bashrc
+		dtf commit -m "Added .bashrc"
+		dtf push -u origin HEAD
 		$gitfiles = git -C $barerepo ls-tree --name-only HEAD
 		$gitfiles | Should -Contain ".bashrc"
 	}
@@ -60,9 +60,9 @@ Describe 'dtfrestore' {
 	It 'Clones given repo, adds .vimrc' {
 		dtfrestore $baserepo
 		New-Item .vimrc
-		git add .vimrc
-		git commit -m "Added .vimrc"
-		git push
+		dtf add .vimrc
+		dtf commit -m "Added .vimrc"
+		dtf push
 		$gitfiles = git -C $HOME/repos/base.git/ ls-tree --name-only HEAD
 		$gitfiles | Should -Contain ".vimrc"
 	}
