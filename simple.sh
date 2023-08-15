@@ -19,6 +19,6 @@
 dtfclone () {
 	REPO="$1"
   DISPOSABLE=$(mktemp -dt dtf-XXXXXX)
-  git clone -c status.showUntrackedFiles=no -n --separate-git-dir "$HOME/.git" $REPO $DISPOSABLE
+  git -C "$HOME" clone -c status.showUntrackedFiles=no -n --separate-git-dir "$HOME/.git" $REPO $DISPOSABLE
   rm -rf $DISPOSABLE
 }
