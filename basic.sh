@@ -36,7 +36,7 @@ dtfnew () {
   REPO="$1"
   dtfclone "$REPO"
 
-  echo "Please add and commit additional files, then run"
+  echo "You may now add and commit additional files, then run"
   echo "git push -u origin HEAD"
 }
 

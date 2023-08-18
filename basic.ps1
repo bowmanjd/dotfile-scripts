@@ -41,7 +41,7 @@ function dtfnew {
   Param ([string]$repo)
   dtfclone $repo
 
-  echo "Please add and commit additional files, then run"
+  echo "You may now add and commit additional files, then run"
   echo "git push -u origin HEAD"
 }
 

@@ -17,24 +17,25 @@
 # to add, commit, push, pull, etc.
 
 DOTFILES="$HOME/.dotfiles"
-DEFAULTBRANCH=base
 
 dtf () {
   git --git-dir="$DOTFILES" --work-tree="$HOME" "$@"
 }
 
 dtfnew () {
-  git clone --bare $1 $DOTFILES
-  dtf config --local status.showUntrackedFiles no
-  dtf switch -c "$DEFAULTBRANCH"
+	REPO="$1"
+  git clone -c status.showUntrackedFiles=no --bare "$REPO" "$DOTFILES"
 
-  echo "Please add and commit additional files"
+  echo "You may now add and commit additional files"
   echo "using 'dtf add' and 'dtf commit', then run"
-  echo "dtf push -u origin $DEFAULTBRANCH"
+  echo "dtf push -u origin HEAD"
 }
 
 dtfrestore () {
-  git clone -b "$DEFAULTBRANCH" --bare $1 $DOTFILES
-  dtf config --local status.showUntrackedFiles no
+	REPO="$1"
+  git clone -c status.showUntrackedFiles=no --bare "$REPO" "$DOTFILES"
   dtf checkout || echo -e 'Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf checkout'
+  echo "Then you may add and commit additional files"
+  echo "using 'dtf add' and 'dtf commit', then run"
+  echo "dtf push -u origin HEAD"
 }
