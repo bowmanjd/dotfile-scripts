@@ -12,3 +12,4 @@ podman run -it -v "$hostdir:$scriptdir:z" "$container" shellspec -c "$testdir" -
 podman run -it -v "$hostdir:$scriptdir:z" "$container" shellspec -c "$testdir" -s dash
 podman run -it -v "$hostdir:$scriptdir:z" "$container" shellspec -c "$testdir" -s bash
 podman run -it -v "$hostdir:$scriptdir:z" "$container" pwsh -Command "Invoke-Pester -Output Detailed $testdir/test_basic_ps.Tests.ps1"
+podman run -it -v "$hostdir:$scriptdir:z" "$container" pwsh -Command "Invoke-Pester -Output Detailed $testdir/test_bare_ps.Tests.ps1"
